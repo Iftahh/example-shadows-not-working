@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://level_generator.gd" type="Script" id=1]
+[ext_resource path="res://camera.gd" type="Script" id=2]
+[ext_resource path="res://cliff_material.tres" type="Material" id=3]
+[ext_resource path="res://ground_material.tres" type="Material" id=4]
+
+[sub_resource type="OpenSimplexNoise" id=2]
+octaves = 5
+period = 53.0
+
+[sub_resource type="Environment" id=1]
+ambient_light_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="CapsuleMesh" id=3]
+
+[sub_resource type="CapsuleMesh" id=4]
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 1 )
+ground_material = ExtResource( 4 )
+wall_material = ExtResource( 3 )
+noise = SubResource( 2 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="CameraNode" type="Spatial" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 60, -80 )
+script = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="CameraNode"]
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0 )
+current = true
+far = 503.5
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.963693, 0.173216, -0.203203, 0.00263483, 0.754819, 0.655927, 0.266999, -0.632648, 0.726958, 0, 2.57956, 0 )
+shadow_enabled = true
+
+[node name="CSGMesh" type="CSGMesh" parent="."]
+transform = Transform( 6.55331, 0, 0, 0, 2.08143, 0, 0, 0, 3.81745, -36.1552, 22.005, -7.88664 )
+mesh = SubResource( 3 )
+material = ExtResource( 3 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="."]
+transform = Transform( 2.83399, 0, 0, 0, 0.966164, 0, 0, 0, 2.83399, 0, 4.34448, 27.1161 )
+mesh = SubResource( 4 )
+material = ExtResource( 3 )
