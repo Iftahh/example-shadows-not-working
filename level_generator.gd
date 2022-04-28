@@ -17,7 +17,6 @@ var wall_st = SurfaceTool.new()
 export var noise: OpenSimplexNoise
 
 var mesh_instance
-var mesh_instance2
 
 enum {
 	LOW,
@@ -69,29 +68,22 @@ func create_3d_level(x_dim, y_dim, z_dim):
 	ground_st.set_material(ground_material)
 	ground_st.commit(mesh)
 	
-	var mesh2 = Mesh.new()
 	wall_st.index()
 	wall_st.generate_normals()
 	wall_st.generate_tangents()
 	wall_st.set_material(wall_material)
-	wall_st.commit(mesh2)
+	wall_st.commit(mesh)
 #
 	if mesh_instance != null:
-		mesh_instance2.call_deferred("queue_free")
 		mesh_instance.call_deferred("queue_free")
 		mesh_instance = null
-		mesh_instance2 = null
 		
 	mesh_instance = MeshInstance.new()
-	mesh_instance2 = MeshInstance.new()
 	mesh_instance.translation = Vector3(-X_DIM/2, 0, -Z_DIM/2)
-	mesh_instance2.translation = Vector3(-X_DIM/2, 0, -Z_DIM/2)
 	
 	mesh_instance.set_mesh(mesh)
-	mesh_instance2.set_mesh(mesh2)
 	#mesh_instance.create_trimesh_collision()
 	add_child(mesh_instance)
-	add_child(mesh_instance2)
 	
 
 
